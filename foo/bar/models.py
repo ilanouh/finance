@@ -8,19 +8,19 @@ from django.db import models
 
 class	Client(models.Model):
 	GENDER_CHOICES = (
-		('H', 'male'),
-		('F', 'female'),
+		('H', 'Male'),
+		('F', 'Female'),
 	)
 	STATUS_CHOICES = (
-		('Actif', 'active'),
-		('Inactif', 'inactive'),
-		('Retraite', 'retired'),
+		('Actif', 'Active'),
+		('Inactif', 'Inactive'),
+		('Retraite', 'Retired'),
 	)
 	RISK_CHOICES = (
-		('Dynamic', 'Dynamique')
-		('Defensive', 'Defensif')
-		('Balanced', 'Equilibre')
-		)
+		('Dynamique', 'Dynamic')
+		('Defensif', 'Defensive')
+		('Equilibre', 'Balanced')
+	)
 
 	client_id = models.CharField('client id', max_length=250, unique=True)
 	first_name = models.CharField('first name', max_length=250)
@@ -35,6 +35,25 @@ class	Client(models.Model):
 	risk_profile = models.CharField('risk profile', choices=RISK_CHOICES, null=True, blank=True, max_length=100)
 	enter_date = models.DateTimeField('enter date', null=True, blank=True)
 
+
+class		Account(models.Model):
+	TYPE_CHOICES = (
+		('Assurance vie', 'Life Insurance'),
+		('Compte titres', 'Securities Account')
+		('PEA', 'Equity Savings Plan')
+	)
+	PROFILE_CHOICES = (
+		('Dynamique', 'Dynamic')
+		('Defensif', 'Defensive')
+		('Equilibre', 'Balanced')
+	)
+	account_id = models.CharField('client id', max_length=250, unique=True)
+	client_id = models.ForeignKey(Client)
+	initial_date = models.DateTimeField('initial date')
+	initial_amount = models.FloatField('initial amount')
+	final_amount = models.FloatField('final amount')
+	account_type = models.CharField('account type', choices=TYPE_CHOICES, max_length=100)
+	profile = models.CharField('profile', max_length=100)
 
 class		AccountTrackRecordEvolution(object):
 
