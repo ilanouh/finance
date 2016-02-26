@@ -14,11 +14,11 @@ class	Client(models.Model):
 	STATUS_CHOICES = (
 		('Actif', 'Active'),
 		('Inactif', 'Inactive'),
-		('Retraite', 'Retired'),
+		('Retraite', 'Retired')
 	)
 	RISK_CHOICES = (
-		('Dynamique', 'Dynamic')
-		('Defensif', 'Defensive')
+		('Dynamique', 'Dynamic'),
+		('Defensif', 'Defensive'),
 		('Equilibre', 'Balanced')
 	)
 
@@ -35,19 +35,22 @@ class	Client(models.Model):
 	risk_profile = models.CharField('risk profile', choices=RISK_CHOICES, null=True, blank=True, max_length=100)
 	enter_date = models.DateTimeField('enter date', null=True, blank=True)
 
+	def __str__(self):
+		return self.client_id
+
 
 class		Account(models.Model):
 	TYPE_CHOICES = (
 		('Assurance vie', 'Life Insurance'),
-		('Compte titres', 'Securities Account')
+		('Compte titres', 'Securities Account'),
 		('PEA', 'Equity Savings Plan')
 	)
 	PROFILE_CHOICES = (
-		('Dynamique', 'Dynamic')
-		('Defensif', 'Defensive')
+		('Dynamique', 'Dynamic'),
+		('Defensif', 'Defensive'),
 		('Equilibre', 'Balanced')
 	)
-	account_id = models.CharField('client id', max_length=250, unique=True)
+	account_id = models.CharField('account id', max_length=250, unique=True)
 	client_id = models.ForeignKey(Client)
 	initial_date = models.DateTimeField('initial date')
 	initial_amount = models.FloatField('initial amount')
@@ -55,7 +58,11 @@ class		Account(models.Model):
 	account_type = models.CharField('account type', choices=TYPE_CHOICES, max_length=100)
 	profile = models.CharField('profile', max_length=100)
 
-class		AccountTrackRecordEvolution(object):
+	def __str__(self):
+		return self.account_id
+
+
+# class		AccountTrackRecordEvolution(object):
 
 
 		
