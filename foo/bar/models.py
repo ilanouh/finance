@@ -64,7 +64,7 @@ class		Account(models.Model):
 
 class AccountAnalytic(models.Model):
 	account_id = models.ForeignKey(Account)
-	period = models.IntegerField('period')
+	period = models.IntegerField('period', unique=True)
 	date_start = models.DateTimeField('Date start')
 	date_end = models.DateTimeField('Date end')
 	account_pl = models.FloatField('Account profit & loss')
@@ -73,17 +73,26 @@ class AccountAnalytic(models.Model):
 	account_vol = models.FloatField('Account Volatilite')
 	account_max_dd = models.FloatField('Account Maximum Drawdown')
 	account_te = models.FloatField('Account Tracking-error')
-	bench_pl = models.FloatField('Bench profit & loss')
-	bench_perf = models.FloatField('Bench performance')
-	bench_perf_ann = models.FloatField('Bench performance annualisee')
-	bench_vol = models.FloatField('Bench Volatilite')
-	bench_max_dd = models.FloatField('Bench Maximum Drawdown')
+	bench_pl = models.FloatField('Benchmark profit & loss')
+	bench_perf = models.FloatField('Benchmark performance')
+	bench_perf_ann = models.FloatField('Benchmark performance annualisee')
+	bench_vol = models.FloatField('Benchmark Volatilite')
+	bench_max_dd = models.FloatField('Benchmark Maximum Drawdown')
 
 	def __str__(self):
 		return self.account_id
 
+class AccountTrackRecordEvolution(models.Model):
+	account_id = models.ForeignKey(Account)
+	date = models.DateTimeField('Date', unique=True)
+	account_amount = models.IntegerField('Account amount')
+	bench_amount = models.IntegerField('Benchmark amount')
+	account_perf_daily = models.IntegerField('Account daily performance')
+	bench_perf_daily = models.IntegerField('Benchmark daily performance')
+	diff_perf_daily = models.IntegerField('Difference daily performance')
+
+	def __str__(self):
+		return self.account_id
 
 # class		AccountTrackRecordEvolution(object):
 
-
-		
