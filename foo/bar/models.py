@@ -62,6 +62,27 @@ class		Account(models.Model):
 		return self.account_id
 
 
+class AccountAnalytic(models.Model):
+	account_id = models.ForeignKey(Account)
+	period = models.IntegerField('period')
+	date_start = models.DateTimeField('Date start')
+	date_end = models.DateTimeField('Date end')
+	account_pl = models.FloatField('Account profit & loss')
+	account_perf = models.FloatField('Account Performance')
+	account_perf_ann = models.FloatField('Account Performance annualisee')
+	account_vol = models.FloatField('Account Volatilite')
+	account_max_dd = models.FloatField('Account Maximum Drawdown')
+	account_te = models.FloatField('Account Tracking-error')
+	bench_pl = models.FloatField('Bench profit & loss')
+	bench_perf = models.FloatField('Bench performance')
+	bench_perf_ann = models.FloatField('Bench performance annualisee')
+	bench_vol = models.FloatField('Bench Volatilite')
+	bench_max_dd = models.FloatField('Bench Maximum Drawdown')
+
+	def __str__(self):
+		return self.account_id
+
+
 # class		AccountTrackRecordEvolution(object):
 
 
