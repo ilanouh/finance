@@ -16,6 +16,11 @@ class	Client(models.Model):
 		('Inactif', 'inactive'),
 		('Retraite', 'retired'),
 	)
+	RISK_CHOICES = (
+		('Dynamic', 'Dynamique')
+		('Defensive', 'Defensif')
+		('Balanced', 'Equilibre')
+		)
 
 	client_id = models.CharField('client id', max_length=250, unique=True)
 	first_name = models.CharField('first name', max_length=250)
@@ -27,6 +32,11 @@ class	Client(models.Model):
 	society = models.CharField('society', max_length=100)
 	children = models.IntegerField('children', default=0)
 	region = models.CharField('region', max_length=100)
-	risk_profile = models.CharField('risk profile', null=True, blank=True, max_length=100)
+	risk_profile = models.CharField('risk profile', choices=RISK_CHOICES, null=True, blank=True, max_length=100)
 	enter_date = models.DateTimeField('enter date', null=True, blank=True)
 
+
+class		AccountTrackRecordEvolution(object):
+
+
+		
