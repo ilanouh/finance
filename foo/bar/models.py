@@ -42,7 +42,7 @@ class	Client(models.Model):
 class		Account(models.Model):
 	TYPE_CHOICES = (
 		('Assurance vie', 'Life Insurance'),
-		('Compte titres', 'Securities Account'),
+		('Compte titres', 'Trading Account'),
 		('PEA', 'Equity Savings Plan')
 	)
 	PROFILE_CHOICES = (
@@ -81,6 +81,26 @@ class AccountAnalytic(models.Model):
 
 	def __str__(self):
 		return self.account_id
+
+
+class Product(models.Model):
+	# CURRENCY_CHOICES = (
+		# ('EUR', 'Euros'),
+		# ('USD', 'US Dollars')
+	# )
+	isin = models.CharField('ISIN', unique=True, max_length=250)
+	name = models.CharField('name', max_length=250)
+	product_type = models.CharField('type', max_length=250)
+	pea = models.BooleanField('equity savings plan', default=False)
+	asv = models.BooleanField('life insurance', default=False)
+	cto = models.BooleanField('trading account', default=False)
+	asset = models.CharField('asset', max_length=250)
+	zone = models.CharField('zone', max_length=250)
+	focus = models.CharField('focus', max_length=250)
+	currency = models.CharField('currency', max_length=50)
+	# currency = models.CharField('currency', max_length=50, choices=CURRENCY_CHOICES)
+	management = models.CharField('management', max_length=100)
+	description = models.TextField('description', max_length=1000)
 
 
 # class		AccountTrackRecordEvolution(object):
