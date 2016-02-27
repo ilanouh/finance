@@ -3,7 +3,7 @@ import csv
 from django.shortcuts import redirect
 from datetime import datetime
 from django.db import models
-from bar.models import Client, Account, AccountAnalytic
+from bar.models import Client, Account, AccountAnalytic, Product
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -37,14 +37,55 @@ def fill_clients(request, file):
 
 
 def fill_accounts(request, file):
-	field = ['account_id', 'period', 'date_start', 'date_end', 'account_p', 'account_perf', 'account_vol', 'account_maxdd', 'account_te', 'bench_p', 'bench_perf', 'bench_perfann', 'bench_vol', 'bench_maxdd']
+	field = ['account_id', 'client_id', 'initial_date', 'initial_amount', 'final_amount', 'account_type', 'profile']
 	f = open(file)
 	for row in csv.reader(f):
 		datas = row[0].split(';')
-		datas[0] = Account.objects.get(account_id=datas[0])
-		
-		Account.objects.create(**dict(zip(field, datas)))
-	return field
+		datas[2] = datetime.strptime(datas[2], '%d/%m/%Y')
+		try:
+			client = Client.objects.get(client_id=datas[1])
+			try:
+			 	Account.objects.get(account_id=datas[0])
+			except ObjectDoesNotExist:
+				Account.objects.create(
+					account_id=datas[0].decode('unicode-escape'),
+					client_id=client,
+					initial_date=datas[2],
+					initial_amount=datas[3],
+					final_amount=datas[4],
+					account_type=datas[5].decode('unicode-escape'),
+					profile=datas[6].decode('unicode-escape'),
+				)
+		except ObjectDoesNotExist:
+			print "CLIENT DOESN'T EXIST"
+	return redirect('index')
+
+
+def fill_products(request, file):
+
+	field = ['isin', 'name', 'product_type', 'pea', 'asv', 'cto', 'asset', 'zone', 'focus', 'currency', 'management', 'description']
+	f = open(file)
+	for row in csv.reader(f):
+		datas = row[0].split(';')
+		datas[2] = datetime.strptime(datas[2], '%d/%m/%Y')
+		try:
+		 	Product.objects.get(account_id=datas[0])
+		except ObjectDoesNotExist:
+			Product.objects.create(
+				isin = datas[0].decode('unicode-escape'),
+				name = datas[1].decode('unicode-escape'),
+				product_type = datas[2].decode('unicode-escape'),
+				pea = datas[3],
+				asv = datas[4],
+				cto = datas[5],
+				asset = datas[6],
+				zone = datas[7],
+				focus = datas[8],
+				currency = datas[9],
+				management = datas[10],
+				description = datas[11],
+			)
+	return redirect('index')
 
 
 def fill_account_analytics(request, file):
