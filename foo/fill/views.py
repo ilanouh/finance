@@ -67,24 +67,20 @@ def fill_products(request, file):
 	f = open(file)
 	for row in csv.reader(f):
 		datas = row[0].split(';')
-		datas[2] = datetime.strptime(datas[2], '%d/%m/%Y')
-		try:
-		 	Product.objects.get(account_id=datas[0])
-		except ObjectDoesNotExist:
-			Product.objects.create(
-				isin = datas[0].decode('unicode-escape'),
-				name = datas[1].decode('unicode-escape'),
-				product_type = datas[2].decode('unicode-escape'),
-				pea = datas[3],
-				asv = datas[4],
-				cto = datas[5],
-				asset = datas[6],
-				zone = datas[7],
-				focus = datas[8],
-				currency = datas[9],
-				management = datas[10],
-				description = datas[11],
-			)
+		Product.objects.create(
+			isin = datas[0].decode('unicode-escape'),
+			name = datas[1].decode('unicode-escape'),
+			product_type = datas[2].decode('unicode-escape'),
+			pea = True if datas[3] == "Yes" else False,
+			asv = True if datas[4] == "Yes" else False,
+			cto = True if datas[5] == "Yes" else False,
+			asset = datas[6].decode('unicode-escape'),
+			zone = datas[7].decode('unicode-escape'),
+			focus = datas[8].decode('unicode-escape'),
+			currency = datas[9].decode('unicode-escape'),
+			management = datas[10].decode('unicode-escape'),
+			description = datas[11].decode('unicode-escape'),
+		)
 	return redirect('index')
 
 
