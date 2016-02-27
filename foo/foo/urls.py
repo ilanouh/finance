@@ -16,9 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .parse_csv import print_stuff, parse_csv
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^bar/', include('bar.urls')),
+    url(r'^fill/', include('fill.urls')),
 ]
