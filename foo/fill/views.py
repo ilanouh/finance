@@ -21,8 +21,8 @@ def fill_clients(request, file):
 		except ObjectDoesNotExist:
 			Client.objects.create(
 				client_id=datas[0].decode('unicode-escape'),
-				first_name=datas[1].decode('unicode-escape'),
-				last_name=datas[2].decode('unicode-escape'),
+				last_name=datas[1].decode('unicode-escape'),
+				first_name=datas[2].decode('unicode-escape'),
 				gender=datas[3].decode('unicode-escape'),
 				birth_date=datas[4],
 				status=datas[5].decode('unicode-escape'),
@@ -92,4 +92,4 @@ def fill_account_analytics(request, file):
 		datas[0] = Account.objects.get(account_id=datas[0])
 		
 		AccountAnalytic.objects.create(**dict(zip(field, datas)))
-	return field
+	return redirect('index')

@@ -1,4 +1,8 @@
 {% load staticfiles %}
+{% load math_tags %}
+
+
+{{ money.final_amount|minus:money.initial_amount }}
 
 <!-- Graph HTML -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

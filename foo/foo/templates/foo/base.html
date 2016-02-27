@@ -32,8 +32,9 @@
 	{# Top bar goes here #}
 	{% include "foo/topbar.html" %}
 
-	{% include "foo/sidebar.html" %}
+	{# {% include "foo/sidebar.html" %} #}
 	{# Main content goes here #}
+	{% block base_body %}{% endblock base_body %}
 
 	{# Override if you need another version of jQuery #}
 	{% block foundation_jquery %}
