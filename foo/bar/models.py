@@ -61,6 +61,20 @@ class		Account(models.Model):
 	def __str__(self):
 		return self.account_id
 
+class ProductAnalytic(models.model):
+	isin = models.ForeignKey(product)
+	period = models.IntegerField('period')
+	date_start = models.DateTimeField('Date start')
+	date_end = models.DateTimeField('Date end')
+	pl = models.FloatField('profit & loss', max_length=250)
+	perf = models.FloatField('Perf', max_length=250)
+	perf_ann = models.FloatField('Performance annualisee')
+	vol = models.FloatField('Volatilite')
+	max_dd = models.FloatField('Maximum Drawdown')
+
+	def __str__(self):
+			return self.account_id
+
 
 class AccountAnalytic(models.Model):
 	account_id = models.ForeignKey(Account)
@@ -116,6 +130,21 @@ class Product(models.Model):
 
 	def __str__(self):
 		return self.isin
+
+class  ProductTrackRecordEvolution(models.Model):
+	isin = model.ForeignKey(Product)
+	date = model.DateTimeField('Date', unique=True)
+	value = model.FloatField('Value')
+
+	def __str__(self):
+		return self.isin
+
+class AccountTrackRecordComposition(models.Model):
+	account_id = models.ForeignKey(Account)
+	date = model.DateTimeField('Date', unique=True)
+	isin = model.ForeignKey(Product)
+	amount = model.FloatField('Amount')
+	client_decided = model.BooleanField('Client Decided', default=False)
 
 # class		AccountTrackRecordEvolution(object):
 
