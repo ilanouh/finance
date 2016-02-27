@@ -61,8 +61,30 @@ class		Account(models.Model):
 	def __str__(self):
 		return self.account_id
 
-class ProductAnalytic(models.model):
-	isin = models.ForeignKey(product)
+class Product(models.Model):
+	# CURRENCY_CHOICES = (
+		# ('EUR', 'Euros'),
+		# ('USD', 'US Dollars')
+	# )
+	isin = models.CharField('ISIN', unique=True, max_length=250)
+	name = models.CharField('name', max_length=250)
+	product_type = models.CharField('type', max_length=250)
+	pea = models.BooleanField('equity savings plan', default=False)
+	asv = models.BooleanField('life insurance', default=False)
+	cto = models.BooleanField('trading account', default=False)
+	asset = models.CharField('asset', max_length=250)
+	zone = models.CharField('zone', max_length=250)
+	focus = models.CharField('focus', max_length=250)
+	currency = models.CharField('currency', max_length=50)
+	# currency = models.CharField('currency', max_length=50, choices=CURRENCY_CHOICES)
+	management = models.CharField('management', max_length=100)
+	description = models.TextField('description', max_length=1000)
+
+	def __str__(self):
+		return self.isin
+
+class ProductAnalytic(models.Model):
+	isin = models.ForeignKey(Product)
 	period = models.IntegerField('period')
 	date_start = models.DateTimeField('Date start')
 	date_end = models.DateTimeField('Date end')
@@ -75,7 +97,7 @@ class ProductAnalytic(models.model):
 	def __str__(self):
 			return self.account_id
 
-
+	
 class AccountAnalytic(models.Model):
 	account_id = models.ForeignKey(Account)
 	period = models.IntegerField('period', unique=True)
@@ -109,42 +131,21 @@ class AccountTrackRecordEvolution(models.Model):
 		return self.account_id
 
 
-class Product(models.Model):
-	# CURRENCY_CHOICES = (
-		# ('EUR', 'Euros'),
-		# ('USD', 'US Dollars')
-	# )
-	isin = models.CharField('ISIN', unique=True, max_length=250)
-	name = models.CharField('name', max_length=250)
-	product_type = models.CharField('type', max_length=250)
-	pea = models.BooleanField('equity savings plan', default=False)
-	asv = models.BooleanField('life insurance', default=False)
-	cto = models.BooleanField('trading account', default=False)
-	asset = models.CharField('asset', max_length=250)
-	zone = models.CharField('zone', max_length=250)
-	focus = models.CharField('focus', max_length=250)
-	currency = models.CharField('currency', max_length=50)
-	# currency = models.CharField('currency', max_length=50, choices=CURRENCY_CHOICES)
-	management = models.CharField('management', max_length=100)
-	description = models.TextField('description', max_length=1000)
-
-	def __str__(self):
-		return self.isin
 
 class  ProductTrackRecordEvolution(models.Model):
-	isin = model.ForeignKey(Product)
-	date = model.DateTimeField('Date', unique=True)
-	value = model.FloatField('Value')
+	isin = models.ForeignKey(Product)
+	date = models.DateTimeField('Date', unique=True)
+	value = models.FloatField('Value')
 
 	def __str__(self):
 		return self.isin
 
 class AccountTrackRecordComposition(models.Model):
 	account_id = models.ForeignKey(Account)
-	date = model.DateTimeField('Date', unique=True)
-	isin = model.ForeignKey(Product)
-	amount = model.FloatField('Amount')
-	client_decided = model.BooleanField('Client Decided', default=False)
+	date = models.DateTimeField('Date', unique=True)
+	isin = models.ForeignKey(Product)
+	amount = models.FloatField('Amount')
+	client_decided = models.BooleanField('Client Decided', default=False)
 
 	def __str__(self):
 		return self.account_id
