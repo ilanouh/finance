@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Client, Account, AccountAnalytic, Product
+from .models import Client, Account, AccountAnalytic, Product, ProductAnalytic
 
 admin.site.register(Client)
 admin.site.register(Account)
