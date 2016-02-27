@@ -146,5 +146,7 @@ class AccountTrackRecordComposition(models.Model):
 	amount = model.FloatField('Amount')
 	client_decided = model.BooleanField('Client Decided', default=False)
 
+	def __str__(self):
+		return self.account_id
 # class		AccountTrackRecordEvolution(object):
 
