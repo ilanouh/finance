@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 # from django.utils.translation import ugettext_lazy as _
 
 from django.db import models
-
 # Create your models here.
 
 
@@ -149,5 +148,7 @@ class AccountTrackRecordComposition(models.Model):
 
 	def __str__(self):
 		return self.account_id
+
+
 # class		AccountTrackRecordEvolution(object):
 
