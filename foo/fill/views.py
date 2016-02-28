@@ -1,5 +1,6 @@
 import csv
 
+from django.template.defaultfilters import slugify
 from django.shortcuts import redirect
 from datetime import datetime
 from django.db import models
@@ -32,6 +33,7 @@ def fill_clients(request, file):
 				region=datas[9].decode('unicode-escape'),
 				risk_profile=datas[10].decode('unicode-escape'),
 				enter_date=datas[11],
+				slug=slugify(datas[0].decode('unicode-escape')),
 			)
 	return redirect('index')
 
@@ -84,7 +86,7 @@ def fill_products(request, file):
 	return redirect('index')
 
 
-def fill_product_analytic(request, file):
+def fill_product_analytics(request, file):
 	field = ['isin', 'period', 'date_start', 'date_end', 'pl', 'perf', 'perf_ann', 'vol', 'max_dd']
 	f = open(file)
 	for row in csv.reader(f):
@@ -112,7 +114,7 @@ def fill_product_analytic(request, file):
 	return redirect('index')
 
 
-def fill_account_analytic(request, file):
+def fill_account_analytics(request, file):
 	field = ['account_id', 'period', 'date_start', 'date_end', 'account_pl', 'account_perf', 'account_perf', 'account_vol', 'account_max_dd', 'account_te', 'bench_pl', 'bench_perf', 'bench_perf_ann', 'bench_vol', 'bench_max_dd']
 	f = open(file)
 	for row in csv.reader(f):

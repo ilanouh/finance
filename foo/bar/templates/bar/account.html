@@ -1,0 +1,32 @@
+{% extends "foo/base.html" %}
+{% load staticfiles %}
+
+
+{% block base_body %}
+<div class="row">
+	<div class="small-12 columns">
+		<h1>Infos Account</h1>
+	</div>
+	<div class="small-12 columns">
+		<h3>Account ID : {{ object.account_id }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<a href="{% url 'client' object.client_id %}"><h3>Client : {{ object.client_id }}</h3></a>
+	</div>
+	<div class="small-12 columns">
+		<h3>Initial date : {{ object.initial_date }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Initial amount : {{ object.initial_amount }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Final amount : {{ object.final_amount }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Account type : {{ object.account_type }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Profile : {{ object.profile }}</h3>
+	</div>
+</div>
+{% endblock %}

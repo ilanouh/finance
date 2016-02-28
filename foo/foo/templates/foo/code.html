@@ -1,0 +1,324 @@
+
+<script type="text/javascript">
+
+var self_inv = 50;
+var Foo_inv = 1435 + self_inv;
+var lol = 0;
+
+
+function change1() {
+    document.getElementById("myButton1").value="Close Curtain";
+    lol = 0;
+    draw();}
+
+function change2() {
+    document.getElementById("myButton2").value="Close Curtain";
+    lol = 1;
+    draw();}
+
+function change3() {
+    document.getElementById("myButton3").value="Close Curtain";
+    lol = 2;
+    draw();}
+
+function p_and_f(final_value, initial_value) {
+        return final_value - initial_value;
+}
+
+function perf(profit, initial_value) {
+    return profit / initial_value;
+}
+
+function perf_ann(Performance) {
+    return (1 + perfomance) * (1/ 252) - 1;
+}
+
+function average(x_list, nb) {
+    total = 0;
+    
+}
+
+function sum_perso(n, xbar, x_list) {
+    ret = 0;
+
+}
+
+function volatility(n, x_list, nb) {
+    start = sqrt(1/(n-1));
+    sump = sum_perso(n, average(x_list, nb), x_list);
+    return sqrt((1 / (n - 1)) * sump) * sqrt(252);
+}
+
+function maximum_drawdawn(x_list) {
+    max_dd = 0;
+}
+
+function tracking_error(perf, bench) {
+    return perf - bench;
+}
+
+function draw() {
+        // Graph scripts here
+    var PL = [[{
+        // Marché réel
+        data: [ [6, 1300], [7, 1600], [8, 3000], [9, 2100], [10, 2500], [11, 2200], [12, 2000], [13, 1950], [14, 1900], [15, 2000] ],
+        color: 'turquoise'
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + self_inv], [7, 1600 + self_inv], [8, 1900 + self_inv], [9, 2100 + self_inv], [10, 2500 + self_inv], [11, 2200 + self_inv], [12, 2000 + self_inv], [13, 1950 + self_inv], [14, 1900 + self_inv], [15, 2000 + self_inv] ],
+        color: 'purple',
+        points: { radius: 4 }
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + Foo_inv], [7, 1600 + Foo_inv], [8, 1900 + Foo_inv], [9, 2100 + Foo_inv], [10, 2500 + Foo_inv], [11, 2200 + Foo_inv], [12, 2000 + Foo_inv], [13, 1950 + Foo_inv], [14, 1900 + Foo_inv], [15, 2000 + Foo_inv] ],
+        color: 'red',
+        points: { radius: 4 }
+    }]
+    ];
+
+    var Perf = [[{
+        // Marché réel
+        data: [ [6, 1300], [7, 1600], [8, 1900], [9, 2100], [10, 2500], [11, 2200], [12, 2000], [13, 1950], [14, 1900], [15, 2000] ],
+        color: 'turquoise'
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + self_inv], [7, 1600 + self_inv], [8, 1900 + self_inv], [9, 2100 + self_inv], [10, 2500 + self_inv], [11, 2200 + self_inv], [12, 2000 + self_inv], [13, 1950 + self_inv], [14, 1900 + self_inv], [15, 2000 + self_inv] ],
+        color: 'purple',
+        points: { radius: 4 }
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + Foo_inv], [7, 1600 + Foo_inv], [8, 1900 + Foo_inv], [9, 2100 + Foo_inv], [10, 2500 + Foo_inv], [11, 2200 + Foo_inv], [12, 2000 + Foo_inv], [13, 1950 + Foo_inv], [14, 1900 + Foo_inv], [15, 2000 + Foo_inv] ],
+        color: 'red',
+        points: { radius: 4 }
+    }]
+    ];
+
+    var Perf_ann= [[{
+        // Marché réel
+        data: [ [6, 1300], [7, 1600], [8, 1900], [9, 2100], [10, 2500], [11, 2200], [12, 2000], [13, 1950], [14, 1900], [15, 2000] ],
+        color: 'turquoise'
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + self_inv], [7, 1600 + self_inv], [8, 1900 + self_inv], [9, 2100 + self_inv], [10, 2500 + self_inv], [11, 2200 + self_inv], [12, 2000 + self_inv], [13, 1950 + self_inv], [14, 1900 + self_inv], [15, 2000 + self_inv] ],
+        color: 'purple',
+        points: { radius: 4 }
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + Foo_inv], [7, 1600 + Foo_inv], [8, 1900 + Foo_inv], [9, 2100 + Foo_inv], [10, 2500 + Foo_inv], [11, 2200 + Foo_inv], [12, 2000 + Foo_inv], [13, 1950 + Foo_inv], [14, 1900 + Foo_inv], [15, 2000 + Foo_inv] ],
+        color: 'red',
+        points: { radius: 4 }
+    }]
+    ];
+
+    var Vol = [[{
+        // Marché réel
+        data: [ [6, 1300], [7, 1600], [8, 1900], [9, 2100], [10, 2500], [11, 2200], [12, 2000], [13, 1950], [14, 1900], [15, 2000] ],
+        color: 'turquoise'
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + self_inv], [7, 1600 + self_inv], [8, 1900 + self_inv], [9, 2100 + self_inv], [10, 2500 + self_inv], [11, 2200 + self_inv], [12, 2000 + self_inv], [13, 1950 + self_inv], [14, 1900 + self_inv], [15, 2000 + self_inv] ],
+        color: 'purple',
+        points: { radius: 4 }
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + Foo_inv], [7, 1600 + Foo_inv], [8, 1900 + Foo_inv], [9, 2100 + Foo_inv], [10, 2500 + Foo_inv], [11, 2200 + Foo_inv], [12, 2000 + Foo_inv], [13, 1950 + Foo_inv], [14, 1900 + Foo_inv], [15, 2000 + Foo_inv] ],
+        color: 'red',
+        points: { radius: 4 }
+    }]
+    ];
+
+    var Max_DD = [[{
+        // Marché réel
+        data: [ [6, 1300], [7, 1600], [8, 1900], [9, 2100], [10, 2500], [11, 2200], [12, 2000], [13, 1950], [14, 1900], [15, 2000] ],
+        color: 'turquoise'
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + self_inv], [7, 1600 + self_inv], [8, 1900 + self_inv], [9, 2100 + self_inv], [10, 2500 + self_inv], [11, 2200 + self_inv], [12, 2000 + self_inv], [13, 1950 + self_inv], [14, 1900 + self_inv], [15, 2000 + self_inv] ],
+        color: 'purple',
+        points: { radius: 4 }
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + Foo_inv], [7, 1600 + Foo_inv], [8, 1900 + Foo_inv], [9, 2100 + Foo_inv], [10, 2500 + Foo_inv], [11, 2200 + Foo_inv], [12, 2000 + Foo_inv], [13, 1950 + Foo_inv], [14, 1900 + Foo_inv], [15, 2000 + Foo_inv] ],
+        color: 'red',
+        points: { radius: 4 }
+    }]
+    ];
+
+    var TE = [[{
+        // Marché réel
+        data: [ [6, 1300], [7, 1600], [8, 1900], [9, 2100], [10, 2500], [11, 2200], [12, 2000], [13, 1950], [14, 1900], [15, 2000] ],
+        color: 'turquoise'
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + self_inv], [7, 1600 + self_inv], [8, 1900 + self_inv], [9, 2100 + self_inv], [10, 2500 + self_inv], [11, 2200 + self_inv], [12, 2000 + self_inv], [13, 1950 + self_inv], [14, 1900 + self_inv], [15, 2000 + self_inv] ],
+        color: 'purple',
+        points: { radius: 4 }
+    }], [{
+        // Marché "perso"
+        data: [ [6, 1300 + Foo_inv], [7, 1600 + Foo_inv], [8, 1900 + Foo_inv], [9, 2100 + Foo_inv], [10, 2500 + Foo_inv], [11, 2200 + Foo_inv], [12, 2000 + Foo_inv], [13, 1950 + Foo_inv], [14, 1900 + Foo_inv], [15, 2000 + Foo_inv] ],
+        color: 'red',
+        points: { radius: 4 }
+    }]
+    ];
+
+    $.plot($('#graph-lines'), PL[lol], 1, {
+        series: {
+            points: {
+                show: true,
+                radius: 5
+            },
+            lines: {
+                show: true
+            },
+            shadowSize: 0
+        },
+        grid: {
+            color: '#123456',
+            borderColor: 'black',
+            borderWidth: 1,
+            hoverable: true
+        },
+        xaxis: {
+            tickColor: 'transparent',
+            tickDecimals: 2
+        },
+        yaxis: {
+            tickSize: 1000
+        }
+    });
+
+    $.plot($('#graph-lines2'), Perf[lol], 1, {
+        series: {
+            points: {
+                show: true,
+                radius: 5
+            },
+            lines: {
+                show: true
+            },
+            shadowSize: 0
+        },
+        grid: {
+            color: '#646464',
+            borderColor: 'transparent',
+            borderWidth: 20,
+            hoverable: true
+        },
+        xaxis: {
+            tickColor: 'transparent',
+            tickDecimals: 2
+        },
+        yaxis: {
+            tickSize: 1000
+        }
+    });
+
+    $.plot($('#graph-lines3'), Perf_ann[lol], 1, {
+        series: {
+            points: {
+                show: true,
+                radius: 5
+            },
+            lines: {
+                show: true
+            },
+            shadowSize: 0
+        },
+        grid: {
+            color: '#646464',
+            borderColor: 'transparent',
+            borderWidth: 20,
+            hoverable: true
+        },
+        xaxis: {
+            tickColor: 'transparent',
+            tickDecimals: 2
+        },
+        yaxis: {
+            tickSize: 1000
+        }
+    });
+
+    $.plot($('#graph-lines4'), Vol[lol], 1, {
+        series: {
+            points: {
+                show: true,
+                radius: 5
+            },
+            lines: {
+                show: true
+            },
+            shadowSize: 0
+        },
+        grid: {
+            color: '#646464',
+            borderColor: 'transparent',
+            borderWidth: 20,
+            hoverable: true
+        },
+        xaxis: {
+            tickColor: 'transparent',
+            tickDecimals: 2
+        },
+        yaxis: {
+            tickSize: 1000
+        }
+    });
+
+    $.plot($('#graph-lines5'), Max_DD[lol], 1, {
+        series: {
+            points: {
+                show: true,
+                radius: 5
+            },
+            lines: {
+                show: true
+            },
+            shadowSize: 0
+        },
+        grid: {
+            color: '#646464',
+            borderColor: 'transparent',
+            borderWidth: 20,
+            hoverable: true
+        },
+        xaxis: {
+            tickColor: 'transparent',
+            tickDecimals: 2
+        },
+        yaxis: {
+            tickSize: 1000
+        }
+    });
+
+    $.plot($('#graph-lines6'), TE[lol], 1, {
+        series: {
+            points: {
+                show: true,
+                radius: 5
+            },
+            lines: {
+                show: true
+            },
+            shadowSize: 0
+        },
+        grid: {
+            color: '#646464',
+            borderColor: 'transparent',
+            borderWidth: 20,
+            hoverable: true
+        },
+        xaxis: {
+            tickColor: 'transparent',
+            tickDecimals: 2
+        },
+        yaxis: {
+            tickSize: 1000
+        }
+    });
+}
+
+$(document).ready(function () {
+    draw();
+});
+</script>

@@ -1,7 +1,58 @@
+{% extends "foo/base.html" %}
+{% load staticfiles %}
 
 
+{% block base_body %}
+<div class="row">
+	<div class="small-12 columns">
+		<h1>Infos Client</h1>
+	</div>
+	<div class="small-12 columns">
+		<h3>Client ID : {{ object.client_id }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>First name : {{ object.first_name }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Last name : {{ object.last_name }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Gender : {{ object.gender }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Birth date : {{ object.birth_date }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Status : {{ object.status }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Job : {{ object.job }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Society : {{ object.society }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Children : {{ object.children }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Region : {{ object.region }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Risk profile : {{ object.risk_profile }}</h3>
+	</div>
+	<div class="small-12 columns">
+		<h3>Enter date : {{ object.enter_date }}</h3>
+	</div>
+</div>
 
+<div class="row">
+	<div class="small-12 columns">
+		<h1>Infos Accounts</h1>
+	</div>
 {% for account in accounts %}
-    {{ account }}
+	<div class="small-12 columns">
+		<a href="{% url 'account' object.client_id account.account_id %}"><h3>{{ account }}</h3></a>
+	</div>
 {% endfor %}
-
+</div>
+{% endblock %}
