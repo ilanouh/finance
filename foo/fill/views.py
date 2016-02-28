@@ -3,7 +3,7 @@ import csv
 from django.shortcuts import redirect
 from datetime import datetime
 from django.db import models
-from bar.models import Client, Account, AccountAnalytic, Product
+from bar.models import Client, Account, AccountAnalytic, Product, ProductAnalytic, ProductTrackRecordEvolution, AccountTrackRecordComposition, AccountTrackRecordEvolution
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -84,12 +84,121 @@ def fill_products(request, file):
 	return redirect('index')
 
 
-def fill_account_analytics(request, file):
-	field = ['account_id', 'period', 'date_start', 'date_end', 'account_p', 'account_perf', 'account_vol', 'account_maxdd', 'account_te', 'bench_p', 'bench_perf', 'bench_perfann', 'bench_vol', 'bench_maxdd']
+def fill_product_analytic(request, file):
+	field = ['isin', 'period', 'date_start', 'date_end', 'pl', 'perf', 'perf_ann', 'vol', 'max_dd']
 	f = open(file)
 	for row in csv.reader(f):
-		datas = row[0].split(';')
-		datas[0] = Account.objects.get(account_id=datas[0])
-		
-		AccountAnalytic.objects.create(**dict(zip(field, datas)))
+		data = row[0].split(';')
+		data[2] = datetime.strptime(data[2], '%d/%m/%Y')
+		data[3] = datetime.strptime(data[3], '%d/%m/%Y')
+		try:
+			isin = Product.objects.get(isin=data[0])
+			try:
+				ProductAnalytics.objects.get(isin=isin)
+			except ObjectDoesNotExist:
+				ProductAnalytics.objects.create(
+					isin = isin,
+					period = data[1],
+					date_start = data[2],
+					date_end = data[3],
+					pl = data[4],
+					perf = data[5],
+					perf_ann = data[6],
+					vol = data[7],
+					max_dd = data[8],
+				)
+		except ObjectDoesNotExist:
+			print "PRODUCT DOES NOT EXIST!"
 	return redirect('index')
+
+
+def fill_account_analytic(request, file):
+	field = ['account_id', 'period', 'date_start', 'date_end', 'account_pl', 'account_perf', 'account_perf', 'account_vol', 'account_max_dd', 'account_te', 'bench_pl', 'bench_perf', 'bench_perf_ann', 'bench_vol', 'bench_max_dd']
+	f = open(file)
+	for row in csv.reader(f):
+		data = row[0].split(';')
+		data[2] = datetime.strptime(data[2], '%d/%m/%Y')
+		data[3] = datetime.strptime(data[3], '%d/%m/%Y')
+		try:
+			account_id = Account.objects.get(account_id=data[0])
+		except ObjectDoesNotExist:
+			AccountAnalytic.objects.create(
+				account_id = data[0].decode('unicode-escape'),
+				period = data[1],
+				date_start = data[2],
+				date_end = data[3],
+				account_pl = data[4],
+				account_perf = data[5],
+				account_vol = data[6],
+				account_max_dd = data[7],
+				account_te = data[8],
+				bench_pl = data[9],
+				bench_perf = data[10],
+				bench_perf_ann = data[11],
+				bench_vol = data[12],
+				bench_max_dd = data[13],
+				)
+	return redirect('index')
+
+def fill_product_track_record_evolution(request, file):
+	field = ['isin','date','value']
+	f = open(file)
+	for row in csv.reader(f):
+		data = row[0].split(';')
+		data[1] = datetime.strptime(data[1], '%d/%m/%Y')
+		try:
+			isin = Product.objects.get(isin=data[0])
+			try:
+				ProductTrackRecordEvolution.objects.get(isin=isin)
+			except ObjectDoesNotExist:
+				ProductTrackRecordEvolution.create(
+					isin = isin,
+					date = data[1],
+					value = data[2],
+					)
+		except ObjectDoesNotExist:
+			print "PRODUCT DOES NOT EXIST!"
+	return redirect('index')
+
+def fill_account_track_record_composition(request, file):
+	field = ['account_id', 'date', 'isin', 'amount', 'client_decided']
+	f = open(file)
+	for row in csv.reader(f):
+		data = row[0].split(';')
+		data[1] = datetime.strptime(data[1], '%d/%m/%Y')
+		try:
+			account_id = Account.objects.get(account_id=data[0])
+		except ObjectDoesNotExist:
+			AccountTrackRecordComposition.objects.create(
+				account_id = data[0].decode('unicode-escape'),
+				date = data[1],
+				isin = data[2],
+				amount = data[3],
+				client_decided = data[4],
+				)
+	return redirect('index')
+
+
+def fill_account_track_record_evolution(request, file):
+	field = [ 'account_id', 'date', 'account_amount', 'bench_amount', 'account_perf_daily', 'bench_perf_daily', 'diff_perf_daily']
+	f = open(file)
+	for row in csv.reader(f):
+		data = row[0].split(';')
+		data[1] = datetime.strptime(data[1], '%d/%m/%Y')
+		try:
+			account_id = Account.objects.get(account_id=data[0])
+		except ObjectDoesNotExist:
+			AccountTrackRecordEvolution.objects.create(
+				account_id = data[0].decode('unicode-escape'),
+				date = data[1],
+				account_amount = data[2],
+				bench_amount = data[3],
+				account_perf_daily = data[4],
+				bench_perf_daily = data[5],
+				diff_perf_daily = data[6],
+				)
+	return redirect('index')
+
+
+
+
