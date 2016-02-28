@@ -17,7 +17,7 @@ class GraphView(TemplateView):
 		# context['money'] = get_object_or_404(Account, account_id='CL42Co3')
 		json_serializer = serializers.get_serializer("json")()
 		context['accounts'] = json_serializer.serialize(Account.objects.all().filter(client_id=client), ensure_ascii=False)
-		# accounts = Account.objects.all().filter(client_id=client)
+		accounts = Account.objects.all().filter(client_id=client)
 		# print accounts
 		# for a in accounts:
 			# print a.client_id
