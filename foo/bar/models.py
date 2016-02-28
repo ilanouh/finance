@@ -84,7 +84,7 @@ class Product(models.Model):
 
 class ProductAnalytic(models.Model):
 	isin = models.ForeignKey(Product)
-	period = models.IntegerField('period')
+	period = models.CharField('period', max_length=250)
 	date_start = models.DateTimeField('Date start')
 	date_end = models.DateTimeField('Date end')
 	pl = models.FloatField('profit & loss', max_length=250)
@@ -94,7 +94,7 @@ class ProductAnalytic(models.Model):
 	max_dd = models.FloatField('Maximum Drawdown')
 
 	def __str__(self):
-			return self.account_id
+		return self.account_id
 
 	
 class AccountAnalytic(models.Model):
@@ -117,6 +117,7 @@ class AccountAnalytic(models.Model):
 	def __str__(self):
 		return self.account_id
 
+
 class AccountTrackRecordEvolution(models.Model):
 	account_id = models.ForeignKey(Account)
 	date = models.DateTimeField('Date', unique=True)
@@ -128,7 +129,6 @@ class AccountTrackRecordEvolution(models.Model):
 
 	def __str__(self):
 		return self.account_id
-
 
 
 class  ProductTrackRecordEvolution(models.Model):

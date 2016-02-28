@@ -33,7 +33,6 @@ def fill_clients(request, file):
 				region=datas[9].decode('unicode-escape'),
 				risk_profile=datas[10].decode('unicode-escape'),
 				enter_date=datas[11],
-				slug=slugify(datas[0].decode('unicode-escape')),
 			)
 	return redirect('index')
 
@@ -69,20 +68,23 @@ def fill_products(request, file):
 	f = open(file)
 	for row in csv.reader(f):
 		datas = row[0].split(';')
-		Product.objects.create(
-			isin = datas[0].decode('unicode-escape'),
-			name = datas[1].decode('unicode-escape'),
-			product_type = datas[2].decode('unicode-escape'),
-			pea = True if datas[3] == "Yes" else False,
-			asv = True if datas[4] == "Yes" else False,
-			cto = True if datas[5] == "Yes" else False,
-			asset = datas[6].decode('unicode-escape'),
-			zone = datas[7].decode('unicode-escape'),
-			focus = datas[8].decode('unicode-escape'),
-			currency = datas[9].decode('unicode-escape'),
-			management = datas[10].decode('unicode-escape'),
-			description = datas[11].decode('unicode-escape'),
-		)
+		try:
+			Product.objects.get(isin=datas[0])
+		except ObjectDoesNotExist:
+			Product.objects.create(
+				isin = datas[0].decode('unicode-escape'),
+				name = datas[1].decode('unicode-escape'),
+				product_type = datas[2].decode('unicode-escape'),
+				pea = True if datas[3] == "Yes" else False,
+				asv = True if datas[4] == "Yes" else False,
+				cto = True if datas[5] == "Yes" else False,
+				asset = datas[6].decode('unicode-escape'),
+				zone = datas[7].decode('unicode-escape'),
+				focus = datas[8].decode('unicode-escape'),
+				currency = datas[9].decode('unicode-escape'),
+				management = datas[10].decode('unicode-escape'),
+				description = datas[11].decode('unicode-escape'),
+			)
 	return redirect('index')
 
 
@@ -96,11 +98,11 @@ def fill_product_analytics(request, file):
 		try:
 			isin = Product.objects.get(isin=data[0])
 			try:
-				ProductAnalytics.objects.get(isin=isin)
+				ProductAnalytic.objects.get(isin=isin)
 			except ObjectDoesNotExist:
-				ProductAnalytics.objects.create(
+				ProductAnalytic.objects.create(
 					isin = isin,
-					period = data[1],
+					period = data[1].decode('unicode-escape'),
 					date_start = data[2],
 					date_end = data[3],
 					pl = data[4],
@@ -151,9 +153,9 @@ def fill_product_track_record_evolution(request, file):
 		try:
 			isin = Product.objects.get(isin=data[0])
 			try:
-				ProductTrackRecordEvolution.objects.get(isin=isin)
+				ProductTrackRecordEvolution.objects.get(date=data[1])
 			except ObjectDoesNotExist:
-				ProductTrackRecordEvolution.create(
+				ProductTrackRecordEvolution.objects.create(
 					isin = isin,
 					date = data[1],
 					value = data[2],
@@ -189,16 +191,20 @@ def fill_account_track_record_evolution(request, file):
 		data[1] = datetime.strptime(data[1], '%d/%m/%Y')
 		try:
 			account_id = Account.objects.get(account_id=data[0])
+			try:
+				AccountTrackRecordEvolution.objects.get(date=data[1])
+			except ObjectDoesNotExist:
+				AccountTrackRecordEvolution.objects.create(
+					account_id = data[0].decode('unicode-escape'),
+					date = data[1],
+					account_amount = data[2],
+					bench_amount = data[3],
+					account_perf_daily = data[4],
+					bench_perf_daily = data[5],
+					diff_perf_daily = data[6],
+					)
 		except ObjectDoesNotExist:
-			AccountTrackRecordEvolution.objects.create(
-				account_id = data[0].decode('unicode-escape'),
-				date = data[1],
-				account_amount = data[2],
-				bench_amount = data[3],
-				account_perf_daily = data[4],
-				bench_perf_daily = data[5],
-				diff_perf_daily = data[6],
-				)
+			print "ACCOUNT DOESNT EXIST"
 	return redirect('index')
 
 

@@ -3,4 +3,63 @@
 
 {% block base_body %}
 
+<div class="row">
+	<div class="small-12 columns">
+		<a onclick="changeDatas()" href="#" class="button">Next day</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-2 columns">
+		<span id="data1">1000</span>
+	</div>
+	<div class="small-2 columns">
+		<span id="data2">1000</span>
+	</div>
+	<div class="small-2 columns">
+		<span id="data3">1000</span>
+	</div>
+	<div class="small-2 columns">
+		<span id="data4">1000</span>
+	</div>
+	<div class="small-2 columns">
+		<span id="data5">1000</span>
+	</div>
+	<div class="small-2 columns">
+		<span id="data6">1000</span>
+	</div>
+</div>
+<script type="text/javascript">
+var data1 = 1000;
+var average1 = 2;
+var data2 = 1000;
+var average2 = 0.5;
+var data3 = 1000;
+var average3 = 1.75;
+var data4 = 1000;
+var average4 = 0.75;
+var data5 = 1000;
+var average5 = 0.3;
+var data6 = 1000;
+var average6 = 1;
+
+function changeDatas() {
+	// data1 = data1 * average1;
+	data1 = Math.floor(data1 * average1 * (Math.random() * (1.05 - 0.95) + 0.95).toFixed(4));
+	document.getElementById("data1").innerHTML = data1;
+	data2 = Math.floor(data2 * average2 * (Math.random() * (1.05 - 0.95) + 0.95).toFixed(4));
+	document.getElementById("data2").innerHTML = data2;
+	data3 = Math.floor(data3 * average3 * (Math.random() * (1.05 - 0.95) + 0.95).toFixed(4));
+	document.getElementById("data3").innerHTML = data3;
+	data4 = Math.floor(data4 * average4 * (Math.random() * (1.05 - 0.95) + 0.95).toFixed(4));
+	document.getElementById("data4").innerHTML = data4;
+	data5 = Math.floor(data5 * average5 * (Math.random() * (1.05 - 0.95) + 0.95).toFixed(4));
+	document.getElementById("data5").innerHTML = data5;
+	data6 = Math.floor(data6 * average6 * (Math.random() * (1.05 - 0.95) + 0.95).toFixed(4));
+	document.getElementById("data6").innerHTML = data6;
+}
+
+// function 
+// var refreshIntervalId = setInterval(changeDatas, 5000);
+</script>
 {% endblock %}
