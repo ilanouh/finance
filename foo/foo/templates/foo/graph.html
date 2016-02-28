@@ -5,13 +5,23 @@
 
 <!-- Graph HTML -->
 {% block base_body %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="{% static "foo/jquery.flot.min.js" %}"></script>
 
 <!-- Code JS in HTML -->
 {% include "foo/code.html" %}
 
 <link href="{% static "foo/style.css" %}" rel="stylesheet"/>
+<div class="row">
+	<div class="small-4 columns">
+        <a class="button" href="#" onclick="change1()" type="button" value="Marché réel" id="myButton1">Marchée réel<a/>
+        </div>
+	<div class="small-4 columns">
+	<a class="button" href="#" onclick="change2()" type="button" value="Votre Marché" id="myButton2">Votre marché</a>
+        </div>
+	<div class="small-4 columns">
+	<a class="button"href="#" onclick="change3()" type="button" value="Foo-ture" id="myButton3">Foo-ture</a>
+	</div>
+</div>
 <div class="row">
     <div class="small-4 small-centered columns">
         <div id="graph-wrapper">
@@ -40,9 +50,6 @@
                 </div>
             </div>
         </div>
-        <input onclick="change1()" type="button" value="Marché réel" id="myButton1"></input>
-        <input onclick="change2()" type="button" value="Votre Marché" id="myButton2"></input>
-        <input onclick="change3()" type="button" value="Foo-ture" id="myButton3"></input>
     </div>
 </div>
 

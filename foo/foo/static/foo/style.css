@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
 }
-.graph-container, #tooltip, .graph-info a {
+/*.graph-container, #tooltip, .graph-info a {
     background: #424242;
     background: -moz-linear-gradient(top, #bababa 0%, #f9f9f9 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bababa), color-stop(100%,#f9f9f9));
@@ -17,7 +17,7 @@
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-}
+}*/
 .graph-container {
     position: relative;
     width: 550px;

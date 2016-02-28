@@ -29,6 +29,10 @@
 
 </head>
 <body {% block body_attr %}{% endblock body_attr %}>
+	{# Override if you need another version of jQuery #}
+	{% block foundation_jquery %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	{% endblock foundation_jquery %}
 	{# Top bar goes here #}
 	{% include "foo/topbar.html" %}
 
@@ -36,10 +40,6 @@
 	{# Main content goes here #}
 	{% block base_body %}{% endblock base_body %}
 
-	{# Override if you need another version of jQuery #}
-	{% block foundation_jquery %}
-	<script src="{% static "foundation/js/vendor/jquery.js" %}"></script>
-	{% endblock foundation_jquery %}
 
 	{# Foundation JS #}
 	{% block foundation_js %}
