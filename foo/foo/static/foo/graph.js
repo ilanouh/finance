@@ -10,55 +10,32 @@ $(document).ready(function () {
         color: 'purple',
         points: { radius: 4 }
     }
-];
-$.plot($('#graph-lines'), graphData, {
-    series: {
-        points: {
-            show: true,
-            radius: 5
+    ];
+    $.plot($('#graph-lines'), graphData, {
+        series: {
+            points: {
+                show: true,
+                radius: 5
+            },
+            lines: {
+                show: true
+            },
+            shadowSize: 0
         },
-        lines: {
-            show: true
+        grid: {
+            color: '#646464',
+            borderColor: 'transparent',
+            borderWidth: 20,
+            hoverable: true
         },
-        shadowSize: 0
-    },
-    grid: {
-        color: '#646464',
-        borderColor: 'transparent',
-        borderWidth: 20,
-        hoverable: true
-    },
-    xaxis: {
-        tickColor: 'transparent',
-        tickDecimals: 2
-    },
-    yaxis: {
-        tickSize: 1000
-    }
-});
- 
-// Bars
-$.plot($('#graph-bars'), graphData, {
-    series: {
-        bars: {
-            show: true,
-            barWidth: .9,
-            align: 'center'
+        xaxis: {
+            tickColor: 'transparent',
+            tickDecimals: 2
         },
-        shadowSize: 0
-    },
-    grid: {
-        color: '#646464',
-        borderColor: 'transparent',
-        borderWidth: 20,
-        hoverable: true
-    },
-    xaxis: {
-        tickColor: 'transparent',
-        tickDecimals: 2
-    },
-    yaxis: {
-        tickSize: 1000
-    }
+        yaxis: {
+            tickSize: 1000
+        }
+    });
+    // console.log(companies);
 });
-});
+
